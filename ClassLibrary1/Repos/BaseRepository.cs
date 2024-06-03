@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using AutoMapper;
+using FiftyOne.Foundation.Mobile.Detection.Entities;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using PetShelter.Data.Entities;
