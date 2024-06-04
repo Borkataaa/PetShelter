@@ -3,6 +3,7 @@ using FiftyOne.Foundation.Mobile.Detection.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using PetShelter.Data;
 using PetShelter.Data.Entities;
 using PetShelter.Shared.Dtos;
 using PetShelter.Shared.Repos.Contracts;
@@ -14,6 +15,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using BaseEntity = PetShelter.Data.Entities.BaseEntity;
 
 namespace PetShelter.Shared.Repos
 {
@@ -37,7 +39,7 @@ namespace PetShelter.Shared.Repos
 
         public virtual TModel MapToModel(T entity)
         {
-            return mapper.Map<T>(entity);
+            return mapper.Map<TModel>(entity);
         }
 
         public virtual T MapToEntity(TModel model)
@@ -50,6 +52,11 @@ namespace PetShelter.Shared.Repos
             return mapper.Map<IEnumerable<TModel>>(entities);
         }
 
+        public async Task<IEnumerable<TModel>> GetAllAsync()
+        {
+            return this.MapToEnumerableOfModel(await _dbSet.ToListAsync());
+        }
+
         public async Task<TModel> GetByIdAsync(int id)
         {
             var user = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
@@ -59,6 +66,77 @@ namespace PetShelter.Shared.Repos
             }
             return this.MapToModel(user);
         }
+
+        
+
+
+        public async Task CreateAsync(TModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            try
+            {
+                var entity = this.MapToEntity(model);
+                await _dbSet.AddAsync(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (SqlException ex)
+            {
+
+                await Console.Out.WriteLineAsync($"The system threw an sql exeption trying to create {nameof(model)} : {ex.Message}");
+            }
+
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync($"The system threw a non sql exeption trying to create {nameof(model)} : {ex.Message}");
+            }
+        }
+
+        public async Task SaveAsync(TModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            if (model.Id != 0 )
+            {
+                await UpdateAsync(model);
+            }
+            else
+            {
+                await CreateAsync(model);
+            }
+        }
+
+
+        public async Task UpdateAsync(TModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            try
+            {
+                var entity = await this._dbSet.FindAsync(model.Id);
+                if (entity == null)
+                {
+                    throw new ArgumentNullException(nameof(entity));
+                    _context.Entry(entity).CurrentValues.SetValues(model);
+                    await _context.SaveChangesAsync();  
+                }
+            }
+             catch (SqlException ex)
+            {
+                await Console.Out.WriteLineAsync($"The system threw ana sql exeption trying to update {nameof(model)} : {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync($"The system threw a non-sql exeption trying to update {nameof(model)} : {ex.Message}");
+            }
+        }
+
 
         public async Task DeleteAsync(int id)
         {
@@ -75,7 +153,7 @@ namespace PetShelter.Shared.Repos
             }
             catch (SqlException ex)
             {
-                await Console.Out.WriteLineAsync($"The system threw an  sql exeption trying to delete {nameof(entity)}: {ex.Messege}");
+                await Console.Out.WriteLineAsync($"The system threw an  sql exeption trying to delete {nameof(entity)}: {ex.Message}");
             }
             catch (Exception ex)
             {
@@ -88,7 +166,7 @@ namespace PetShelter.Shared.Repos
             return _dbSet.AnyAsync(e => e.Id == id);
         }
 
-        public async Task<IEnumerable<TModel>> GetWithPaginationAsync(int pageSize, int pageNumber)
+        public async Task<IEnumerable<TModel>> GetWithPaginatioinAsync(int pageSize, int pageNumber)
         {
             var paginatedRecords = await _dbSet
                 .Skip((pageNumber - 1) * pageSize)
@@ -115,5 +193,7 @@ namespace PetShelter.Shared.Repos
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        
     }
 }

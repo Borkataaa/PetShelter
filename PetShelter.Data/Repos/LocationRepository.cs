@@ -1,25 +1,26 @@
 ﻿using AutoMapper;
 using PetShelter.Data.Entities;
-using PetShelter.Shared.Atributes;
 using PetShelter.Shared.Dtos;
-using PetShelter.Shared.Repos;
 using PetShelter.Shared.Repos.Contracts;
+using PetShelter.Shared.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PetShelter.Shared.Atributes;
 
 namespace PetShelter.Data.Repos
 {
     [AutoBind]
-    public class BreedsRepository : BaseRepository<Breed, BreedDto>, IBreedRepository
+
+    public class LocationRepository : BaseRepository<Location, LocationDto>, ILocationRepository
+
     {
-        public BreedsRepository(PetShelterDbContext context, IMapper mapper) : base(context, mapper)
+       public LocationRepository(PetShelterDbContext context, IMapper mapper) : base(context, mapper)
         {
             
         }
-    }
 
-    
+    }
 }
