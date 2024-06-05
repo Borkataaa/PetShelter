@@ -1,4 +1,5 @@
-﻿using PetShelter.Data.Entities;
+﻿
+using PetShelter.Data.Enums;
 
 namespace PetShelter.Shared.Dtos
 {

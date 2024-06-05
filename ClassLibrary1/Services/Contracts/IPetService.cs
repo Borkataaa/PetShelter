@@ -1,13 +1,14 @@
 ﻿using PetShelter.Shared.Dtos;
+using PetShelter.Shared.Repos.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShelter.Shared.Repos.Contracts
+namespace PetShelter.Shared.Services.Contracts
 {
-    public interface IPetVaccineRepository : IBaseRepository<PetVaccineDto>
+    internal interface IPetService : IBaseCrudService<PetDto, IPetRepository>
     {
     }
 }

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelter_Boriss", "PetShelter_Boriss\PetShelter_Boriss.csproj", "{DABB4A33-6578-4852-AF0B-4621FDED9E8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShelter_Boriss", "PetShelter_Boriss\PetShelter_Boriss.csproj", "{DABB4A33-6578-4852-AF0B-4621FDED9E8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelter.Shared", "ClassLibrary1\PetShelter.Shared.csproj", "{6BA69548-1420-49E9-BB19-01EDEB3AD6B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShelter.Shared", "ClassLibrary1\PetShelter.Shared.csproj", "{6BA69548-1420-49E9-BB19-01EDEB3AD6B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelter.Data", "PetShelter.Data\PetShelter.Data.csproj", "{BFFA5B59-0BC4-4237-806F-98F155AEEA83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShelter.Data", "PetShelter.Data\PetShelter.Data.csproj", "{BFFA5B59-0BC4-4237-806F-98F155AEEA83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelter.Services", "PetShelter.Services\PetShelter.Services.csproj", "{76A38AE1-58F9-4C9E-A9DE-0CD58948FEC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BFFA5B59-0BC4-4237-806F-98F155AEEA83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFFA5B59-0BC4-4237-806F-98F155AEEA83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFFA5B59-0BC4-4237-806F-98F155AEEA83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A38AE1-58F9-4C9E-A9DE-0CD58948FEC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A38AE1-58F9-4C9E-A9DE-0CD58948FEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A38AE1-58F9-4C9E-A9DE-0CD58948FEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A38AE1-58F9-4C9E-A9DE-0CD58948FEC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

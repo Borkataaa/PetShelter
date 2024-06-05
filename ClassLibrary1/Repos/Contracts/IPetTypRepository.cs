@@ -1,5 +1,4 @@
-﻿using PetShelter.Data.Entities;
-using PetShelter.Shared.Dtos;
+﻿using PetShelter.Shared.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
