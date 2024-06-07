@@ -49,5 +49,7 @@ namespace PetShelter.Services
         public abstract Task CreateAsync(TModel model);
         public abstract Task<IEnumerable<TModel>> GetWithPaginatioinAsync(int pageSize, int pageNumber);
         public abstract Task<bool> ExistsByIdAsync(int id);
+
     }
+       
 }
