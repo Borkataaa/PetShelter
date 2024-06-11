@@ -43,12 +43,8 @@ namespace PetShelter.Services
         public virtual Task<IEnumerable<TModel>> GetAllAsync()
             => this._repository.GetAllAsync();
 
-        public Task<bool> ExistsBeIdAsync(int id)
+        public Task<bool> ExistsByIdAsync(int id)
             => this._repository.ExistsByIdAsync(id);
-
-        public abstract Task CreateAsync(TModel model);
-        public abstract Task<IEnumerable<TModel>> GetWithPaginatioinAsync(int pageSize, int pageNumber);
-        public abstract Task<bool> ExistsByIdAsync(int id);
 
     }
        

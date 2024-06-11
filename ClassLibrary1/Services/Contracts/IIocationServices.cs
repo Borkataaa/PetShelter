@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace PetShelter.Shared.Services.Contracts
 {
-    internal interface IIocationServices : IBaseCrudService<LocationDto , ILocationRepository>
+    public interface IIocationServices : IBaseCrudService<LocationDto , ILocationRepository>
     {
+        Task<IEnumerable<LocationDto>> GetAllActiveAsync();
     }
 }

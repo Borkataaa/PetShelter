@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace PetShelter.Shared.Services.Contracts
 {
-    internal interface IRoleService : IBaseCrudService<RoleDto,IRoleRepository>
+    public interface IRoleService : IBaseCrudService<RoleDto,IRoleRepository>
     {
+        public Task<RoleDto> GetByNameIfExistsAsync(string name);
     }
 }

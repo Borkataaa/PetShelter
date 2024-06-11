@@ -8,17 +8,17 @@ using PetShelter_Boriss.ViewModel;
 
 namespace PetShelter_Boriss.Conttrolers
 {
-    public abstract class BaseCrudController<TModel, TRepository ,TService , TEditVM ,TDetailsVM> : Controller
+    public abstract class BaseCrudController<TModel, TRepository, TService, TEditVM, TDetailsVM> : Controller
         where TModel : BaseModel
         where TRepository : IBaseRepository<TModel>
-        where TService : IBaseCrudService<TModel , TRepository>
+        where TService : IBaseCrudService<TModel, TRepository>
         where TEditVM : BaseVM, new()
         where TDetailsVM : BaseVM
     {
         protected readonly TService _service;
         protected readonly IMapper _mapper;
 
-        protected BaseCrudController(TService service ,IMapper mapper)
+        protected BaseCrudController(TService service, IMapper mapper)
         {
             this._service = service;
             _mapper = mapper;
@@ -50,7 +50,7 @@ namespace PetShelter_Boriss.Conttrolers
                 return BadRequest(Constants.InvalidPagination);
             }
 
-            var models = await this._service.GetWithPaginatioinAsync(pageSize, pageNumber);
+            var models = await this._service.GetWithPaginationAsync(pageSize, pageNumber);
             var mappedModels = _mapper.Map<IEnumerable<TDetailsVM>>(models);
             return View(nameof(List), mappedModels);
         }
@@ -63,9 +63,64 @@ namespace PetShelter_Boriss.Conttrolers
             {
                 return BadRequest(Constants.InvalidId);
             }
-            var mappedModel = _mapper
+            var mappedModel = _mapper.Map<TDetailsVM>(model);
+            return View(mappedModel);
         }
-            
-            
+
+
+        [HttpGet]
+        public virtual async Task<IActionResult> Create()
+        {
+            var editVM = await PrePopulateVMAsync(new TEditVM());
+            return View(editVM);
+        }
+
+        [HttpGet]
+        public virtual async Task<IActionResult> Create(TEditVM editVM)
+        {
+            var erors = await Validate(editVM);
+            if (erors != null)
+            {
+                return View(editVM);
+            }
+            var model = this._mapper.Map<TModel>(editVM);
+
+            await this._service.SaveAsync(model);
+            return await List();
+        }
+
+        [HttpPost]
+        public virtual async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest(Constants.InvalidId);
+            }
+            var model = await this._service.GetByIdIfExistsAsync(id.Value);
+
+            if (model == default)
+            {
+                return BadRequest(Constants.InvalidId);
+            }
+
+            var mappedModel = _mapper.Map<TEditVM>(model);
+            mappedModel = await PrePopulateVMAsync(mappedModel);
+
+            return View(mappedModel);
+        }
+
+        [HttpGet]
+        public virtual async Task<IActionResult> Delete(int id)
+        {
+            if (!await this._service.ExistsByIdAsync(id))
+            {
+                return BadRequest(Constants.InvalidId);
+            }
+            await this._service.DeleteAsync(id);
+            return await List();
+        }
+
+
+
     }
 }

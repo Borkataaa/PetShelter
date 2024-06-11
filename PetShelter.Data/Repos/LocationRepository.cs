@@ -22,5 +22,9 @@ namespace PetShelter.Data.Repos
             
         }
 
+        public Task<IEnumerable<LocationDto>> GetAllActiveAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

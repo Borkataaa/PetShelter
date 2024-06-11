@@ -15,9 +15,8 @@ namespace PetShelter.Shared.Repos.Contracts
     {
         Task<TModel> GetByIdIfExistsAsync(int id);
         Task SaveAsync(TModel model);
-        Task CreateAsync(TModel model);
         Task DeleteAsync(int id);
-        Task<IEnumerable<TModel>> GetWithPaginatioinAsync(int pageSize, int pageNumber);
+        Task<IEnumerable<TModel>> GetWithPaginationAsync(int pageSize, int pageNumber);
         Task<IEnumerable<TModel>> GetAllAsync();
         Task<bool> ExistsByIdAsync(int id);
     }

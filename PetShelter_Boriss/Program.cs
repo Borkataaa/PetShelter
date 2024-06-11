@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PetShelter.Data;
 using PetShelter.Data.Repos;
+using PetShelter.Services.Services;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
-
+using PetShelter.Shared.Extensions;
 public class Program
 {
     private static void Main(string[] args)
@@ -26,9 +28,12 @@ public class Program
 
 
         builder.Services.AddAutoMapper(assemblies: Assembly.GetExecutingAssembly());
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie();
 
-        //builder.Services.AutoBind(typeof(PetService).Assembly);
-        //builder.Services.AutoBind(typeof(PetRepository).Assembly);
+       
+        builder.Services.AutoBind(typeof(PetsService).Assembly);
+        builder.Services.AutoBind(typeof(PetRepository).Assembly);
         var app = builder.Build();
 
         using (var scope = app.Services.CreateScope())
@@ -59,5 +64,9 @@ public class Program
             pattern: "{controller=Home}/{action=Index}/{id?}");
 
         app.Run();
+
+        
+
+        
     }
 }

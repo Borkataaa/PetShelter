@@ -11,5 +11,6 @@ namespace PetShelter_Boriss.ViewModel
         public string Name { get; set; }
 
         public virtual List<Pet> Pets { get; set; }
+
     }
 }

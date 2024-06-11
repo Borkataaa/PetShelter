@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace PetShelter.Shared.Services.Contracts
 {
-    internal interface IUserService : IBaseCrudService<UserDto,IUserRepository>
+    public interface IUserService : IBaseCrudService<UserDto,IUserRepository>
     {
+        public Task<bool> CanUserLoginAsync(string username, string password);
+
+        public Task<UserDto> GetByUsernameAsync(string username);
     }
 }

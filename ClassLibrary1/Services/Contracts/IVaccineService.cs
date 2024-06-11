@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PetShelter.Shared.Services.Contracts
 {
-    internal interface IVaccineService : IBaseCrudService<VaccineDto,IVaccineRepository>
+    public interface IVaccineService : IBaseCrudService<VaccineDto,IVaccineRepository>
     {
     }
 }
