@@ -1,6 +1,6 @@
-﻿@using PetShelter_Boriss.Controllers
-@using PetShelter_Boriss.Extensions
-@model PetShelter.Web.ViewModels.BreedEditVM
+﻿@using PetShelter_Boriss.Conttrolers
+@using PetShelter.Shared.Extensions
+@model PetShelter_Boriss.ViewModel.BreedEditVM
 
 @{
     ViewBag.Title = "Create";
@@ -9,7 +9,7 @@
 <h2>Create</h2>
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeyToken()
+    @Html.AntiForgeryToken()
     <div class="form-horizontal ">
         <h4> Product </h4>
         <hr />
